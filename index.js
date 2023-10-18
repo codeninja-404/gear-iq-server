@@ -27,7 +27,8 @@ async function run() {
     const carCollection = client.db("carDB").collection("cars");
     app.post("/cars", async (req, res) => {
       const car = req.body;
-      console.log(car);
+      const result = await carCollection.insertOne(car);
+      res.send(result);
     });
 
     // Send a ping to confirm a successful connection
