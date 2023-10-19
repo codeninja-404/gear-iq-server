@@ -3,7 +3,7 @@ const cors = require("cors");
 require("dotenv").config();
 const app = express();
 const port = process.env.PORT || 5000;
-const { MongoClient, ServerApiVersion } = require("mongodb");
+const { MongoClient, ServerApiVersion, ObjectId } = require("mongodb");
 
 // middleware
 app.use(cors());
@@ -30,6 +30,38 @@ async function run() {
     app.post("/cars", async (req, res) => {
       const car = req.body;
       const result = await carCollection.insertOne(car);
+      res.send(result);
+    });
+
+    // get single data
+    app.get("/cars/:id", async (req, res) => {
+      const id = req.params.id;
+      const query = {
+        _id: new ObjectId(id),
+      };
+      const result = await carCollection.findOne(query);
+      res.send(result);
+    });
+    // update data
+    app.put("/cars/:id", async (req, res) => {
+      const id = req.params.id;
+      const data = req.body;
+      const filter = {
+        _id: new ObjectId(id),
+      };
+      const options = { upsert: true };
+      const update = {
+        $set: {
+          image: data.image,
+          name: data.name,
+          price: data.price,
+          description: data.description,
+          brand: data.brand,
+          type: data.type,
+          rating: data.rating,
+        },
+      };
+      const result = await carCollection.updateOne(filter, update, options);
       res.send(result);
     });
     // geting data from database
