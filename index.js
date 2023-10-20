@@ -1,5 +1,7 @@
 const express = require("express");
 const cors = require("cors");
+const brands = require("./brands.json");
+const adds = require("./add.json");
 require("dotenv").config();
 const app = express();
 const port = process.env.PORT || 5000;
@@ -25,7 +27,8 @@ async function run() {
     await client.connect();
 
     const carCollection = client.db("carDB").collection("cars");
-    const ShoppingCartartCollection = client.db("cartDB").collection("cart");
+
+    const shoppingCartCollection = client.db("cartDB").collection("cart");
 
     // posting single data to database
     app.post("/cars", async (req, res) => {
@@ -33,9 +36,17 @@ async function run() {
       const result = await carCollection.insertOne(car);
       res.send(result);
     });
+    // post cart to database
     app.post("/cart", async (req, res) => {
       const cart = req.body;
-      const result = await ShoppingCartartCollection.insertOne(cart);
+      const result = await shoppingCartCollection.insertOne(cart);
+      res.send(result);
+    });
+    // delete single data from cart
+    app.delete("/cart/:id", async (req, res) => {
+      const id = req.params.id;
+      const query = { _id: id };
+      const result = await shoppingCartCollection.deleteOne(query);
       res.send(result);
     });
 
@@ -61,7 +72,6 @@ async function run() {
           image: data.image,
           name: data.name,
           price: data.price,
-          description: data.description,
           brand: data.brand,
           type: data.type,
           rating: data.rating,
@@ -72,10 +82,19 @@ async function run() {
     });
     // geting data from database
     app.get("/cars", async (req, res) => {
-      // const brandName = req.params.brandName;
-      // const query = { brand: brandName };
       const result = await carCollection.find().toArray();
+      res.send(result);
+    });
 
+    app.get("/brands", (req, res) => {
+      res.send(brands);
+    });
+    app.get("/adds", (req, res) => {
+      res.send(adds);
+    });
+
+    app.get("/cart", async (req, res) => {
+      const result = await shoppingCartCollection.find().toArray();
       res.send(result);
     });
 

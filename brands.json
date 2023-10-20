@@ -1,0 +1,32 @@
+[
+    {
+        "id": 1,
+        "brandName": "Honda",
+        "imageUrl": "https://i.ibb.co/nPHpKYt/In-Shot-20231017-215104571-min.jpg"
+    },
+    {
+        "id": 2,
+        "brandName": "Ford",
+        "imageUrl": "https://i.ibb.co/yV09CfJ/In-Shot-20231017-215130522-min.jpg"
+    },
+    {
+        "id": 3,
+        "brandName": "Tesla",
+        "imageUrl": "https://i.ibb.co/g4PN7hk/In-Shot-20231017-221200945-min.jpg"
+    },
+    {
+        "id": 4,
+        "brandName": "Audi",
+        "imageUrl": "https://i.ibb.co/XzykXGG/In-Shot-20231017-215243359-min.jpg"
+    },
+    {
+        "id": 5,
+        "brandName": "Toyota",
+        "imageUrl": "https://i.ibb.co/tZpt3fV/In-Shot-20231017-215146999-min.jpg"
+    },
+    {
+        "id": 6,
+        "brandName": "BMW",
+        "imageUrl": "https://i.ibb.co/RBkm2zP/In-Shot-20231017-215300584-min.jpg"
+    }
+]
